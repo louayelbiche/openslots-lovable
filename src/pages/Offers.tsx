@@ -97,11 +97,14 @@ export default function Offers() {
                       </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-primary">
-                      ₹{vendor.price}
-                    </p>
-                  </div>
+                <div className="text-right space-y-2">
+                  <p className="text-2xl font-bold text-primary">
+                    ₹{vendor.price}
+                  </p>
+                  <Button size="sm" className="w-full">
+                    Book
+                  </Button>
+                </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
