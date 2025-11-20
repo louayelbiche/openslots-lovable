@@ -1,26 +1,79 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, MapPin, Clock, DollarSign, CheckCircle2 } from "lucide-react";
+import {
+  MapPin,
+  Clock,
+  DollarSign,
+  CheckCircle2,
+  Sparkles,
+} from "lucide-react";
 
 export default function Confirmation() {
   const navigate = useNavigate();
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  useEffect(() => {
+    setShowConfetti(true);
+    const timer = setTimeout(() => setShowConfetti(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      <div className="p-6 space-y-6">
-        <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <h1 className="text-2xl font-bold text-foreground">
-            Confirm Booking
+    <div className="min-h-screen bg-background pb-24 relative overflow-hidden">
+      {showConfetti && (
+        <>
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(50)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute animate-[fall_3s_ease-in-out_forwards]"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: "-10px",
+                  animationDelay: `${Math.random() * 2}s`,
+                }}
+              >
+                <Sparkles
+                  className="text-success"
+                  style={{
+                    width: `${Math.random() * 10 + 15}px`,
+                    height: `${Math.random() * 10 + 15}px`,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          <style>{`
+            @keyframes fall {
+              to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+              }
+            }
+          `}</style>
+        </>
+      )}
+
+      <div className="p-6 space-y-6 relative z-10">
+        <div className="text-center py-8 space-y-4">
+          <div className="w-20 h-20 rounded-full bg-success/20 flex items-center justify-center mx-auto animate-scale-in">
+            <CheckCircle2 className="w-12 h-12 text-success" />
+          </div>
+          <h1 className="text-3xl font-bold text-foreground animate-fade-in">
+            You're booked!
           </h1>
+          <p className="text-muted-foreground animate-fade-in">
+            Get ready to relax
+          </p>
         </div>
 
-        <Card className="overflow-hidden">
-          <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/30"></div>
+        <Card className="overflow-hidden animate-fade-in">
+          <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/30 relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)]"></div>
+          </div>
           <div className="p-6 space-y-4">
             <div>
               <h2 className="text-2xl font-bold text-card-foreground">
@@ -77,26 +130,23 @@ export default function Confirmation() {
 
             <Separator />
 
-            <div className="flex items-center justify-between p-4 bg-accent/20 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border border-success/30">
               <div className="flex items-center space-x-2">
-                <DollarSign className="w-5 h-5 text-primary" />
+                <DollarSign className="w-5 h-5 text-success" />
                 <span className="font-medium text-foreground">Total Price</span>
               </div>
-              <span className="text-2xl font-bold text-primary">₹150</span>
-            </div>
-
-            <div className="flex gap-2 pt-2">
-              <div className="w-8 h-8 rounded bg-muted"></div>
-              <div className="w-8 h-8 rounded bg-muted"></div>
-              <div className="w-8 h-8 rounded bg-muted"></div>
+              <span className="text-2xl font-bold text-success">₹280</span>
             </div>
           </div>
         </Card>
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
-        <Button className="w-full h-12 text-base" onClick={() => alert("Booking confirmed!")}>
-          Confirm Booking
+        <Button
+          className="w-full h-12 text-base"
+          onClick={() => navigate("/home")}
+        >
+          View Booking
         </Button>
       </div>
     </div>

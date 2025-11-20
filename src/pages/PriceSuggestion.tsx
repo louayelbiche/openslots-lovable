@@ -4,11 +4,23 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles, TrendingUp, TrendingDown } from "lucide-react";
 
 export default function PriceSuggestion() {
   const navigate = useNavigate();
-  const [price, setPrice] = useState(300);
+  const recommendedPrice = 300;
+  const [price, setPrice] = useState(recommendedPrice);
+
+  const getMatchLikelihood = () => {
+    const diff = price - recommendedPrice;
+    if (diff > 100) return { text: "Low match likelihood", color: "warning" };
+    if (diff > 0) return { text: "Fair match likelihood", color: "warning" };
+    if (diff > -50) return { text: "Good match likelihood", color: "success" };
+    return { text: "High match likelihood", color: "success" };
+  };
+
+  const likelihood = getMatchLikelihood();
+  const isAboveRecommended = price > recommendedPrice;
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,18 +36,49 @@ export default function PriceSuggestion() {
           <h1 className="text-2xl font-bold text-foreground">Set your price</h1>
         </div>
 
-        <Card className="p-6 bg-accent border-accent-foreground/20">
+        <Card
+          className={`p-6 transition-all duration-500 ${
+            isAboveRecommended
+              ? "bg-warning/10 border-warning/30"
+              : "bg-success/10 border-success/30"
+          }`}
+        >
           <div className="flex items-center space-x-2 mb-2">
-            <Sparkles className="w-5 h-5 text-accent-foreground" />
-            <p className="text-sm font-medium text-accent-foreground">
-              Recommended Price
+            <Sparkles
+              className={`w-5 h-5 ${
+                isAboveRecommended ? "text-warning" : "text-success"
+              }`}
+            />
+            <p className="text-sm font-medium text-foreground">
+              {price === recommendedPrice ? "Recommended Price" : "Your Bid"}
             </p>
           </div>
-          <p className="text-4xl font-bold text-accent-foreground mb-1">
+          <p
+            className={`text-4xl font-bold mb-1 transition-colors duration-500 ${
+              isAboveRecommended ? "text-warning" : "text-success"
+            }`}
+          >
             ₹{price}
           </p>
-          <p className="text-xs text-accent-foreground/70">
-            Based on demand & local averages
+          <div className="flex items-center space-x-2 mt-3">
+            {isAboveRecommended ? (
+              <TrendingUp className="w-4 h-4 text-warning" />
+            ) : (
+              <TrendingDown className="w-4 h-4 text-success" />
+            )}
+            <p
+              className={`text-xs transition-colors duration-500 ${
+                likelihood.color === "warning" ? "text-warning" : "text-success"
+              }`}
+            >
+              {likelihood.text}
+            </p>
+          </div>
+        </Card>
+
+        <Card className="p-5 bg-muted/20">
+          <p className="text-xs text-muted-foreground text-center">
+            Price based on demand & local averages
           </p>
         </Card>
 
@@ -75,16 +118,9 @@ export default function PriceSuggestion() {
         <div className="space-y-3 pt-4">
           <Button
             className="w-full h-12 text-base"
-            onClick={() => navigate("/availability")}
+            onClick={() => navigate("/offers")}
           >
-            Use suggested price
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full h-12 text-base"
-            onClick={() => navigate("/availability")}
-          >
-            Bid your own price
+            Continue
           </Button>
         </div>
       </div>
