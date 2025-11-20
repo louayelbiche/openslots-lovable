@@ -65,7 +65,7 @@ export default function ServiceType() {
                 selectedService === type.id
                   ? "border-teal shadow-lg bg-mint"
                   : type.recommended
-                  ? "border-teal animate-pulse-border bg-light-mint"
+                  ? "border-success bg-light-mint animate-breathing-glow"
                   : "border-border hover:border-teal bg-card"
               }`}
               onClick={() => setSelectedService(type.id)}
@@ -79,7 +79,7 @@ export default function ServiceType() {
                       </h3>
                       {type.recommended && (
                         <span className="text-xs bg-success text-white px-2 py-0.5 rounded-full font-medium">
-                          Recommended
+                          Recommended for you
                         </span>
                       )}
                     </div>
