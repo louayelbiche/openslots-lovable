@@ -47,7 +47,7 @@ export default function Home() {
                     {category.name}
                   </span>
                   {isRecommended && (
-                    <span className="text-xs text-success font-medium">Recommended</span>
+                    <span className="text-xs text-success font-medium">Recommended for you</span>
                   )}
                 </div>
               </Card>
