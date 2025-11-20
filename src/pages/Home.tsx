@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Sparkles, Hand, Scissors, UserCircle } from "lucide-react";
 
+const pulseAnimation = "animate-[pulse_2s_ease-in-out_infinite]";
+const glowAnimation = "shadow-[0_0_20px_rgba(142,182,155,0.6)]";
+
 const categories = [
   { name: "Massage", icon: Hand, path: "/service/massage" },
   { name: "Nails", icon: Sparkles, path: "/service/nails" },
@@ -20,22 +23,36 @@ export default function Home() {
         </h1>
 
         <div className="grid grid-cols-2 gap-4">
-          {categories.map((category) => (
-            <Card
-              key={category.name}
-              onClick={() => navigate(category.path)}
-              className="p-6 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 hover:border-primary"
-            >
-              <div className="flex flex-col items-center space-y-3">
-                <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center">
-                  <category.icon className="w-8 h-8 text-accent-foreground" />
+          {categories.map((category) => {
+            const isRecommended = category.name === "Massage";
+            return (
+              <Card
+                key={category.name}
+                onClick={() => navigate(category.path)}
+                className={`p-6 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 ${
+                  isRecommended
+                    ? `border-light-accent ${pulseAnimation} ${glowAnimation}`
+                    : "hover:border-primary"
+                }`}
+              >
+                <div className="flex flex-col items-center space-y-3">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center ${
+                    isRecommended ? "bg-light-accent" : "bg-accent"
+                  }`}>
+                    <category.icon className={`w-8 h-8 ${
+                      isRecommended ? "text-dark-bg" : "text-accent-foreground"
+                    }`} />
+                  </div>
+                  <span className="text-lg font-semibold text-card-foreground">
+                    {category.name}
+                  </span>
+                  {isRecommended && (
+                    <span className="text-xs text-light-accent font-medium">Recommended</span>
+                  )}
                 </div>
-                <span className="text-lg font-semibold text-card-foreground">
-                  {category.name}
-                </span>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </div>
 

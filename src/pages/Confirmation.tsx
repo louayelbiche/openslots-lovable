@@ -37,7 +37,7 @@ export default function Confirmation() {
                 }}
               >
                 <Sparkles
-                  className="text-success"
+                  className="text-light-accent"
                   style={{
                     width: `${Math.random() * 10 + 15}px`,
                     height: `${Math.random() * 10 + 15}px`,
@@ -59,8 +59,8 @@ export default function Confirmation() {
 
       <div className="p-6 space-y-6 relative z-10">
         <div className="text-center py-8 space-y-4">
-          <div className="w-20 h-20 rounded-full bg-success/20 flex items-center justify-center mx-auto animate-scale-in">
-            <CheckCircle2 className="w-12 h-12 text-success" />
+          <div className="w-20 h-20 rounded-full bg-light-accent/20 flex items-center justify-center mx-auto animate-scale-in">
+            <CheckCircle2 className="w-12 h-12 text-light-accent" />
           </div>
           <h1 className="text-3xl font-bold text-foreground animate-fade-in">
             You're booked!
@@ -71,8 +71,8 @@ export default function Confirmation() {
         </div>
 
         <Card className="overflow-hidden animate-fade-in">
-          <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/30 relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)]"></div>
+          <div className="h-32 bg-gradient-to-br from-light-accent/30 to-dark-card-elevated relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(142,182,155,0.2),transparent)]"></div>
           </div>
           <div className="p-6 space-y-4">
             <div>
@@ -88,8 +88,8 @@ export default function Confirmation() {
 
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-5 h-5 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-light-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-card-foreground">
@@ -100,8 +100,8 @@ export default function Confirmation() {
               </div>
 
               <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
+                  <Clock className="w-5 h-5 text-light-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-card-foreground">
@@ -114,8 +114,8 @@ export default function Confirmation() {
               </div>
 
               <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 text-light-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-card-foreground">
@@ -130,24 +130,38 @@ export default function Confirmation() {
 
             <Separator />
 
-            <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border border-success/30">
+            <div className="flex items-center justify-between p-4 bg-light-accent/20 rounded-lg border border-light-accent/30">
               <div className="flex items-center space-x-2">
-                <DollarSign className="w-5 h-5 text-success" />
+                <DollarSign className="w-5 h-5 text-light-accent" />
                 <span className="font-medium text-foreground">Total Price</span>
               </div>
-              <span className="text-2xl font-bold text-success">₹280</span>
+              <span className="text-2xl font-bold text-light-accent">₹280</span>
             </div>
           </div>
         </Card>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border space-y-2">
         <Button
-          className="w-full h-12 text-base"
+          className="w-full h-12 text-base bg-light-accent hover:bg-light-accent/90 text-dark-bg"
           onClick={() => navigate("/home")}
         >
           View Booking
         </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            className="flex-1 h-10 text-sm border-light-accent/30 text-light-accent hover:bg-light-accent/10"
+          >
+            Add to Calendar
+          </Button>
+          <Button
+            variant="outline"
+            className="flex-1 h-10 text-sm border-light-accent/30 text-light-accent hover:bg-light-accent/10"
+          >
+            View Directions
+          </Button>
+        </div>
       </div>
     </div>
   );
