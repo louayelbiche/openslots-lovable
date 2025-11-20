@@ -13,14 +13,14 @@ export default function PriceSuggestion() {
 
   const getMatchLikelihood = () => {
     const diff = price - recommendedPrice;
-    if (diff > 100) return { text: "Low match likelihood", color: "warning" };
-    if (diff > 0) return { text: "Fair match likelihood", color: "warning" };
-    if (diff > -50) return { text: "Good match likelihood", color: "success" };
-    return { text: "High match likelihood", color: "success" };
+    if (Math.abs(diff) < 25) return { text: "High match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
+    if (diff > 50) return { text: "Very high match (overpaying)", color: "warning", bgColor: "bg-warning/20", borderColor: "border-warning/50", textColor: "text-warning" };
+    if (diff > 0) return { text: "High match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
+    if (diff > -50) return { text: "Medium match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
+    return { text: "Low match likelihood", color: "danger", bgColor: "bg-danger/20", borderColor: "border-danger/50", textColor: "text-danger" };
   };
 
   const likelihood = getMatchLikelihood();
-  const isAboveRecommended = price > recommendedPrice;
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,40 +37,26 @@ export default function PriceSuggestion() {
         </div>
 
         <Card
-          className={`p-6 transition-all duration-500 ${
-            isAboveRecommended
-              ? "bg-warning/10 border-warning/30"
-              : "bg-success/10 border-success/30"
-          }`}
+          className={`p-6 transition-all duration-500 ${likelihood.bgColor} border-2 ${likelihood.borderColor}`}
         >
           <div className="flex items-center space-x-2 mb-2">
-            <Sparkles
-              className={`w-5 h-5 ${
-                isAboveRecommended ? "text-warning" : "text-success"
-              }`}
-            />
+            <Sparkles className={`w-5 h-5 ${likelihood.textColor}`} />
             <p className="text-sm font-medium text-foreground">
               {price === recommendedPrice ? "Recommended Price" : "Your Bid"}
             </p>
           </div>
-          <p
-            className={`text-4xl font-bold mb-1 transition-colors duration-500 ${
-              isAboveRecommended ? "text-warning" : "text-success"
-            }`}
-          >
+          <p className={`text-4xl font-bold mb-1 transition-colors duration-500 ${likelihood.textColor}`}>
             ₹{price}
           </p>
           <div className="flex items-center space-x-2 mt-3">
-            {isAboveRecommended ? (
-              <TrendingUp className="w-4 h-4 text-warning" />
+            {likelihood.color === "warning" ? (
+              <TrendingUp className={`w-4 h-4 ${likelihood.textColor}`} />
+            ) : likelihood.color === "danger" ? (
+              <TrendingDown className={`w-4 h-4 ${likelihood.textColor}`} />
             ) : (
-              <TrendingDown className="w-4 h-4 text-success" />
+              <TrendingUp className={`w-4 h-4 ${likelihood.textColor}`} />
             )}
-            <p
-              className={`text-xs transition-colors duration-500 ${
-                likelihood.color === "warning" ? "text-warning" : "text-success"
-              }`}
-            >
+            <p className={`text-xs transition-colors duration-500 ${likelihood.textColor}`}>
               {likelihood.text}
             </p>
           </div>

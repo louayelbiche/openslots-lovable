@@ -8,43 +8,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 125 52% 91%;
-    --foreground: 183 73% 8%;
+    --background: 180 63% 8%;
+    --foreground: 120 39% 87%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 165 61% 11%;
+    --card: 176 45% 18%;
+    --card-foreground: 120 39% 87%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 165 61% 11%;
+    --popover: 176 45% 18%;
+    --popover-foreground: 120 39% 87%;
 
-    --primary: 165 40% 23%;
-    --primary-foreground: 125 52% 91%;
+    --primary: 174 37% 24%;
+    --primary-foreground: 120 39% 87%;
 
-    --secondary: 133 28% 64%;
-    --secondary-foreground: 165 61% 11%;
+    --secondary: 150 23% 58%;
+    --secondary-foreground: 180 63% 8%;
 
-    --muted: 133 28% 80%;
-    --muted-foreground: 165 41% 15%;
+    --muted: 174 37% 24%;
+    --muted-foreground: 150 23% 58%;
 
-    --accent: 133 28% 64%;
-    --accent-foreground: 165 61% 11%;
+    --accent: 150 23% 58%;
+    --accent-foreground: 180 63% 8%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 133 28% 80%;
-    --input: 133 28% 80%;
-    --ring: 165 40% 23%;
+    --border: 174 37% 24%;
+    --input: 174 37% 24%;
+    --ring: 150 23% 58%;
 
     --radius: 1.25rem;
     
-    --success: 133 28% 64%;
+    --success: 150 23% 58%;
     --warning: 35 90% 55%;
+    --danger: 0 72% 51%;
     --info: 200 90% 55%;
     
-    --dark-primary: 183 73% 8%;
-    --dark-secondary: 165 61% 11%;
-    --dark-tertiary: 165 41% 15%;
+    --dark-bg: 180 63% 8%;
+    --dark-bg-secondary: 176 52% 13%;
+    --dark-card: 176 45% 18%;
+    --dark-card-elevated: 174 37% 24%;
+    --light-accent: 150 23% 58%;
+    --light-accent-secondary: 120 39% 87%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -64,41 +68,45 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 165 61% 11%;
-    --foreground: 125 52% 91%;
+    --background: 180 63% 8%;
+    --foreground: 120 39% 87%;
 
-    --card: 165 41% 15%;
-    --card-foreground: 125 52% 91%;
+    --card: 176 45% 18%;
+    --card-foreground: 120 39% 87%;
 
-    --popover: 165 41% 15%;
-    --popover-foreground: 125 52% 91%;
+    --popover: 176 45% 18%;
+    --popover-foreground: 120 39% 87%;
 
-    --primary: 133 28% 64%;
-    --primary-foreground: 165 61% 11%;
+    --primary: 174 37% 24%;
+    --primary-foreground: 120 39% 87%;
 
-    --secondary: 165 40% 23%;
-    --secondary-foreground: 125 52% 91%;
+    --secondary: 150 23% 58%;
+    --secondary-foreground: 180 63% 8%;
 
-    --muted: 165 40% 23%;
-    --muted-foreground: 133 28% 64%;
+    --muted: 174 37% 24%;
+    --muted-foreground: 150 23% 58%;
 
-    --accent: 165 40% 23%;
-    --accent-foreground: 133 28% 64%;
+    --accent: 150 23% 58%;
+    --accent-foreground: 180 63% 8%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 165 40% 23%;
-    --input: 165 40% 23%;
-    --ring: 133 28% 64%;
+    --border: 174 37% 24%;
+    --input: 174 37% 24%;
+    --ring: 150 23% 58%;
     
-    --success: 133 28% 64%;
+    --success: 150 23% 58%;
     --warning: 35 90% 55%;
+    --danger: 0 72% 51%;
     --info: 200 90% 55%;
     
-    --dark-primary: 183 73% 8%;
-    --dark-secondary: 165 61% 11%;
-    --dark-tertiary: 165 41% 15%;
+    --dark-bg: 180 63% 8%;
+    --dark-bg-secondary: 176 52% 13%;
+    --dark-card: 176 45% 18%;
+    --dark-card-elevated: 174 37% 24%;
+    --light-accent: 150 23% 58%;
+    --light-accent-secondary: 120 39% 87%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -117,5 +125,22 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out;
   }
 }

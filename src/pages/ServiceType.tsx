@@ -11,11 +11,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const pulseAnimation = "animate-[pulse_2s_ease-in-out_infinite]";
+const glowAnimation = "shadow-[0_0_20px_rgba(142,182,155,0.6)]";
+
 const massageTypes = [
-  { id: 1, name: "Foot Massage", duration: "45 min", price: "₹250" },
-  { id: 2, name: "Oil Massage", duration: "60 min", price: "₹300" },
-  { id: 3, name: "Full Body", duration: "90 min", price: "₹500" },
-  { id: 4, name: "Thai Massage", duration: "60 min", price: "₹350" },
+  { id: 1, name: "Foot Massage", duration: "45 min", price: "₹250", recommended: true },
+  { id: 2, name: "Oil Massage", duration: "60 min", price: "₹300", recommended: false },
+  { id: 3, name: "Full Body", duration: "90 min", price: "₹500", recommended: false },
+  { id: 4, name: "Thai Massage", duration: "60 min", price: "₹350", recommended: false },
 ];
 
 const timeWindows = [
@@ -60,7 +63,9 @@ export default function ServiceType() {
               key={type.id}
               className={`overflow-hidden cursor-pointer transition-all duration-300 ${
                 selectedService === type.id
-                  ? "border-2 border-accent shadow-lg bg-accent/5"
+                  ? "border-2 border-light-accent shadow-lg bg-light-accent/10"
+                  : type.recommended
+                  ? `border-2 border-light-accent ${pulseAnimation} ${glowAnimation}`
                   : "border-2 border-transparent hover:border-border"
               }`}
               onClick={() => setSelectedService(type.id)}
@@ -68,9 +73,16 @@ export default function ServiceType() {
               <div className="p-5 space-y-4">
                 <div className="flex justify-between items-center">
                   <div className="space-y-2">
-                    <h3 className="font-semibold text-lg text-card-foreground">
-                      {type.name}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-lg text-card-foreground">
+                        {type.name}
+                      </h3>
+                      {type.recommended && (
+                        <span className="text-xs bg-light-accent text-dark-bg px-2 py-0.5 rounded-full font-medium">
+                          Recommended
+                        </span>
+                      )}
+                    </div>
                     <div className="flex items-center text-muted-foreground text-sm">
                       <Clock className="w-4 h-4 mr-1" />
                       {type.duration}
@@ -78,7 +90,7 @@ export default function ServiceType() {
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-muted-foreground">Starting at</p>
-                    <p className="text-xl font-bold text-primary">{type.price}</p>
+                    <p className="text-xl font-bold text-light-accent">{type.price}</p>
                   </div>
                 </div>
 

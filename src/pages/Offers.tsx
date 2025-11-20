@@ -12,43 +12,46 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const pulseAnimation = "animate-[pulse_2s_ease-in-out_infinite]";
+const glowAnimation = "shadow-[0_0_25px_rgba(142,182,155,0.7)]";
+
 const vendors = [
   {
     id: 1,
     name: "Serenity Spa",
     rating: 4.8,
-    distance: "1.2 km",
+    distance: 1.2,
     bestPrice: 280,
     label: "Best Offer",
     times: [
-      { slot: "2:00 PM", price: 280 },
-      { slot: "3:30 PM", price: 300 },
-      { slot: "5:00 PM", price: 320 },
+      { slot: "2:00 PM", price: 280, bestOffer: true },
+      { slot: "3:30 PM", price: 300, bestOffer: false },
+      { slot: "5:00 PM", price: 320, bestOffer: false },
     ],
   },
   {
     id: 2,
     name: "Wellness Hub",
     rating: 4.9,
-    distance: "0.8 km",
+    distance: 0.8,
     bestPrice: 300,
     label: "Highest Rated",
     times: [
-      { slot: "1:00 PM", price: 300 },
-      { slot: "4:00 PM", price: 310 },
+      { slot: "1:00 PM", price: 300, bestOffer: true },
+      { slot: "4:00 PM", price: 310, bestOffer: false },
     ],
   },
   {
     id: 3,
     name: "Tranquil Touch",
     rating: 4.6,
-    distance: "0.5 km",
+    distance: 0.5,
     bestPrice: 350,
     label: "Shortest Distance",
     times: [
-      { slot: "12:00 PM", price: 350 },
-      { slot: "2:30 PM", price: 360 },
-      { slot: "6:00 PM", price: 340 },
+      { slot: "12:00 PM", price: 350, bestOffer: false },
+      { slot: "2:30 PM", price: 360, bestOffer: false },
+      { slot: "6:00 PM", price: 340, bestOffer: true },
     ],
   },
 ];
@@ -59,6 +62,20 @@ export default function Offers() {
   const [selectedSlots, setSelectedSlots] = useState<{ [key: number]: string }>(
     { 1: "2:00 PM" }
   );
+
+  const getSortedVendors = () => {
+    const sorted = [...vendors];
+    if (sortBy === "price") {
+      return sorted.sort((a, b) => a.bestPrice - b.bestPrice);
+    } else if (sortBy === "rating") {
+      return sorted.sort((a, b) => b.rating - a.rating);
+    } else if (sortBy === "distance") {
+      return sorted.sort((a, b) => a.distance - b.distance);
+    }
+    return sorted;
+  };
+
+  const sortedVendors = getSortedVendors();
 
   return (
     <div className="min-h-screen bg-background pb-6">
@@ -71,10 +88,13 @@ export default function Offers() {
             <h1 className="text-2xl font-bold text-foreground">Live Offers</h1>
             <Badge
               variant="secondary"
-              className="mt-1 animate-pulse bg-success/20 text-success border-success/30"
+              className="mt-1 animate-pulse bg-light-accent/20 text-light-accent border-light-accent/30"
             >
-              <span className="w-2 h-2 rounded-full bg-success mr-2 animate-ping"></span>
-              Offers coming in...
+              <span className="w-2 h-2 rounded-full bg-light-accent mr-2 animate-ping"></span>
+              <span className="animate-[pulse_1.5s_ease-in-out_infinite]">Offers coming in</span>
+              <span className="animate-[pulse_1.5s_ease-in-out_infinite_0.5s]">.</span>
+              <span className="animate-[pulse_1.5s_ease-in-out_infinite_1s]">.</span>
+              <span className="animate-[pulse_1.5s_ease-in-out_infinite_1.5s]">.</span>
             </Badge>
           </div>
         </div>
@@ -86,7 +106,11 @@ export default function Offers() {
               variant={sortBy === filter.toLowerCase() ? "default" : "outline"}
               size="sm"
               onClick={() => setSortBy(filter.toLowerCase())}
-              className="whitespace-nowrap"
+              className={`whitespace-nowrap transition-all ${
+                sortBy === filter.toLowerCase()
+                  ? "bg-light-accent text-dark-bg hover:bg-light-accent/90"
+                  : "bg-dark-card-elevated text-foreground hover:bg-dark-card-elevated/80"
+              }`}
             >
               {filter}
             </Button>
@@ -94,90 +118,100 @@ export default function Offers() {
         </div>
 
         <div className="space-y-3">
-          {vendors.map((vendor, index) => (
-            <Card
-              key={vendor.id}
-              className={`p-5 cursor-pointer transition-all relative overflow-hidden ${
-                index === 0
-                  ? "border-2 border-success animate-pulse shadow-lg shadow-success/20"
-                  : "hover:shadow-lg"
-              }`}
-            >
-              <Badge
-                className={`absolute top-3 right-3 ${
-                  index === 0
-                    ? "bg-success text-white"
-                    : "bg-secondary text-secondary-foreground"
+          {sortedVendors.map((vendor, index) => {
+            const isTopOffer = index === 0;
+            return (
+              <Card
+                key={vendor.id}
+                className={`p-5 transition-all relative overflow-hidden ${
+                  isTopOffer
+                    ? `border-2 border-light-accent ${pulseAnimation} ${glowAnimation}`
+                    : "border-2 border-border hover:border-light-accent/50"
                 }`}
               >
-                {vendor.label}
-              </Badge>
+                <Badge
+                  className={`absolute top-3 right-3 ${
+                    isTopOffer
+                      ? "bg-light-accent text-dark-bg"
+                      : "bg-dark-card-elevated text-light-accent border border-light-accent/30"
+                  }`}
+                >
+                  {vendor.label}
+                </Badge>
 
-              <div className="space-y-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold text-lg text-card-foreground">
-                      {vendor.name}
-                    </h3>
-                    <div className="flex items-center space-x-3 mt-1 text-sm text-muted-foreground">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 text-warning fill-warning mr-1" />
-                        {vendor.rating}
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        {vendor.distance}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold text-lg text-card-foreground">
+                        {vendor.name}
+                      </h3>
+                      <div className="flex items-center space-x-3 mt-1 text-sm text-muted-foreground">
+                        <div className="flex items-center">
+                          <Star className="w-4 h-4 text-warning fill-warning mr-1" />
+                          {vendor.rating}
+                        </div>
+                        <div className="flex items-center">
+                          <MapPin className="w-4 h-4 mr-1" />
+                          {vendor.distance} km
+                        </div>
                       </div>
                     </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Best price
+                      </p>
+                      <p className="text-2xl font-bold text-light-accent">
+                        ₹{vendor.bestPrice}
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-muted-foreground mb-1">
-                      Best price
-                    </p>
-                    <p className="text-2xl font-bold text-primary">
-                      ₹{vendor.bestPrice}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    Choose your time slot
-                  </label>
-                  <Select
-                    value={selectedSlots[vendor.id] || vendor.times[0].slot}
-                    onValueChange={(value) =>
-                      setSelectedSlots({ ...selectedSlots, [vendor.id]: value })
-                    }
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-foreground flex items-center">
+                      <Clock className="w-4 h-4 mr-1" />
+                      Choose your time slot
+                    </label>
+                    <Select
+                      value={selectedSlots[vendor.id] || vendor.times[0].slot}
+                      onValueChange={(value) =>
+                        setSelectedSlots({ ...selectedSlots, [vendor.id]: value })
+                      }
+                    >
+                      <SelectTrigger className="w-full bg-dark-card-elevated border-border">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-dark-card-elevated border-border">
+                        {vendor.times.map((time) => (
+                          <SelectItem key={time.slot} value={time.slot}>
+                            <div className="flex justify-between w-full items-center gap-4">
+                              <span>{time.slot}</span>
+                              <div className="flex items-center gap-2">
+                                <span className="font-semibold text-light-accent">
+                                  ₹{time.price}
+                                </span>
+                                {time.bestOffer && (
+                                  <span className="text-xs bg-light-accent/20 text-light-accent px-2 py-0.5 rounded-full">
+                                    Best offer
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <Button
+                    className="w-full bg-light-accent hover:bg-light-accent/90 text-dark-bg"
+                    onClick={() => navigate("/booking-summary")}
                   >
-                    <SelectTrigger className="w-full bg-card">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-card">
-                      {vendor.times.map((time) => (
-                        <SelectItem key={time.slot} value={time.slot}>
-                          <div className="flex justify-between w-full">
-                            <span>{time.slot}</span>
-                            <span className="ml-4 font-semibold">
-                              ₹{time.price}
-                            </span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    Book Now
+                  </Button>
                 </div>
-
-                <Button
-                  className="w-full"
-                  onClick={() => navigate("/confirmation")}
-                >
-                  Book Now
-                </Button>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </div>
     </div>

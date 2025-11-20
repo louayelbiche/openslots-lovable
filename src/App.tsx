@@ -9,6 +9,7 @@ import PriceSuggestion from "./pages/PriceSuggestion";
 import Availability from "./pages/Availability";
 import Offers from "./pages/Offers";
 import DiscountBands from "./pages/DiscountBands";
+import BookingSummary from "./pages/BookingSummary";
 import Confirmation from "./pages/Confirmation";
 import VendorDashboard from "./pages/VendorDashboard";
 import NotFound from "./pages/NotFound";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/availability" element={<Availability />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/discount-bands" element={<DiscountBands />} />
+          <Route path="/booking-summary" element={<BookingSummary />} />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/vendor-dashboard" element={<VendorDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
