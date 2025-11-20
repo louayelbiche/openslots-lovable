@@ -8,47 +8,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 180 63% 8%;
-    --foreground: 120 39% 87%;
+    --background: 157 64% 95%;
+    --foreground: 158 69% 13%;
 
-    --card: 176 45% 18%;
-    --card-foreground: 120 39% 87%;
+    --card: 140 45% 96%;
+    --card-foreground: 158 69% 13%;
 
-    --popover: 176 45% 18%;
-    --popover-foreground: 120 39% 87%;
+    --popover: 140 45% 96%;
+    --popover-foreground: 158 69% 13%;
 
-    --primary: 174 37% 24%;
-    --primary-foreground: 120 39% 87%;
+    --primary: 158 50% 22%;
+    --primary-foreground: 140 45% 96%;
 
-    --secondary: 150 23% 58%;
-    --secondary-foreground: 180 63% 8%;
+    --secondary: 156 71% 15%;
+    --secondary-foreground: 140 45% 96%;
 
-    --muted: 174 37% 24%;
-    --muted-foreground: 150 23% 58%;
+    --muted: 150 28% 88%;
+    --muted-foreground: 158 50% 35%;
 
     --accent: 150 23% 58%;
-    --accent-foreground: 180 63% 8%;
+    --accent-foreground: 158 69% 13%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 174 37% 24%;
-    --input: 174 37% 24%;
+    --border: 150 28% 88%;
+    --input: 150 28% 88%;
     --ring: 150 23% 58%;
 
     --radius: 1.25rem;
     
-    --success: 150 23% 58%;
-    --warning: 35 90% 55%;
-    --danger: 0 72% 51%;
+    --success: 152 74% 29%;
+    --warning: 25 95% 59%;
+    --danger: 0 65% 55%;
     --info: 200 90% 55%;
     
-    --dark-bg: 180 63% 8%;
-    --dark-bg-secondary: 176 52% 13%;
-    --dark-card: 176 45% 18%;
-    --dark-card-elevated: 174 37% 24%;
-    --light-accent: 150 23% 58%;
-    --light-accent-secondary: 120 39% 87%;
+    --mint: 140 45% 96%;
+    --teal: 150 23% 58%;
+    --deep-green: 156 71% 15%;
+    --dark-green: 156 56% 18%;
+    --primary-green: 158 50% 22%;
+    --light-mint: 148 55% 93%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -68,45 +68,45 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 180 63% 8%;
-    --foreground: 120 39% 87%;
+    --background: 157 64% 95%;
+    --foreground: 158 69% 13%;
 
-    --card: 176 45% 18%;
-    --card-foreground: 120 39% 87%;
+    --card: 140 45% 96%;
+    --card-foreground: 158 69% 13%;
 
-    --popover: 176 45% 18%;
-    --popover-foreground: 120 39% 87%;
+    --popover: 140 45% 96%;
+    --popover-foreground: 158 69% 13%;
 
-    --primary: 174 37% 24%;
-    --primary-foreground: 120 39% 87%;
+    --primary: 158 50% 22%;
+    --primary-foreground: 140 45% 96%;
 
-    --secondary: 150 23% 58%;
-    --secondary-foreground: 180 63% 8%;
+    --secondary: 156 71% 15%;
+    --secondary-foreground: 140 45% 96%;
 
-    --muted: 174 37% 24%;
-    --muted-foreground: 150 23% 58%;
+    --muted: 150 28% 88%;
+    --muted-foreground: 158 50% 35%;
 
     --accent: 150 23% 58%;
-    --accent-foreground: 180 63% 8%;
+    --accent-foreground: 158 69% 13%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 174 37% 24%;
-    --input: 174 37% 24%;
+    --border: 150 28% 88%;
+    --input: 150 28% 88%;
     --ring: 150 23% 58%;
     
-    --success: 150 23% 58%;
-    --warning: 35 90% 55%;
-    --danger: 0 72% 51%;
+    --success: 152 74% 29%;
+    --warning: 25 95% 59%;
+    --danger: 0 65% 55%;
     --info: 200 90% 55%;
     
-    --dark-bg: 180 63% 8%;
-    --dark-bg-secondary: 176 52% 13%;
-    --dark-card: 176 45% 18%;
-    --dark-card-elevated: 174 37% 24%;
-    --light-accent: 150 23% 58%;
-    --light-accent-secondary: 120 39% 87%;
+    --mint: 140 45% 96%;
+    --teal: 150 23% 58%;
+    --deep-green: 156 71% 15%;
+    --dark-green: 156 56% 18%;
+    --primary-green: 158 50% 22%;
+    --light-mint: 148 55% 93%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -140,7 +140,37 @@ All colors MUST be HSL.
     }
   }
   
+  @keyframes gentle-blink {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 hsl(var(--teal) / 0.4);
+    }
+    50% {
+      opacity: 0.85;
+      box-shadow: 0 0 20px 4px hsl(var(--teal) / 0.6);
+    }
+  }
+
+  @keyframes pulse-border {
+    0%, 100% {
+      border-color: hsl(var(--teal));
+      box-shadow: 0 0 0 0 hsl(var(--teal) / 0.4);
+    }
+    50% {
+      border-color: hsl(var(--accent));
+      box-shadow: 0 0 0 4px hsl(var(--teal) / 0.2);
+    }
+  }
+  
   .animate-scale-in {
     animation: scale-in 0.5s ease-out;
+  }
+
+  .animate-gentle-blink {
+    animation: gentle-blink 2s ease-in-out infinite;
+  }
+
+  .animate-pulse-border {
+    animation: pulse-border 2s ease-in-out infinite;
   }
 }

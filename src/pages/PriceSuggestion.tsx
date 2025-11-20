@@ -13,11 +13,41 @@ export default function PriceSuggestion() {
 
   const getMatchLikelihood = () => {
     const diff = price - recommendedPrice;
-    if (Math.abs(diff) < 25) return { text: "High match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
-    if (diff > 50) return { text: "Very high match (overpaying)", color: "warning", bgColor: "bg-warning/20", borderColor: "border-warning/50", textColor: "text-warning" };
-    if (diff > 0) return { text: "High match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
-    if (diff > -50) return { text: "Medium match likelihood", color: "success", bgColor: "bg-light-accent/20", borderColor: "border-light-accent/50", textColor: "text-light-accent" };
-    return { text: "Low match likelihood", color: "danger", bgColor: "bg-danger/20", borderColor: "border-danger/50", textColor: "text-danger" };
+    if (Math.abs(diff) < 25) return { 
+      text: "High match likelihood", 
+      bgColor: "bg-light-mint", 
+      borderColor: "border-teal", 
+      textColor: "text-success",
+      cardBg: "bg-light-mint"
+    };
+    if (diff > 50) return { 
+      text: "Very high match likelihood", 
+      bgColor: "bg-deep-green/10", 
+      borderColor: "border-success", 
+      textColor: "text-success",
+      cardBg: "bg-success/5"
+    };
+    if (diff > 0) return { 
+      text: "High match likelihood", 
+      bgColor: "bg-light-mint", 
+      borderColor: "border-teal", 
+      textColor: "text-success",
+      cardBg: "bg-light-mint"
+    };
+    if (diff > -50) return { 
+      text: "Low match likelihood", 
+      bgColor: "bg-warning/10", 
+      borderColor: "border-warning", 
+      textColor: "text-warning",
+      cardBg: "bg-warning/5"
+    };
+    return { 
+      text: "Very low match likelihood", 
+      bgColor: "bg-danger/10", 
+      borderColor: "border-danger", 
+      textColor: "text-danger",
+      cardBg: "bg-danger/5"
+    };
   };
 
   const likelihood = getMatchLikelihood();
@@ -37,7 +67,7 @@ export default function PriceSuggestion() {
         </div>
 
         <Card
-          className={`p-6 transition-all duration-500 ${likelihood.bgColor} border-2 ${likelihood.borderColor}`}
+          className={`p-6 transition-all duration-500 border-2 ${likelihood.borderColor} ${likelihood.cardBg}`}
         >
           <div className="flex items-center space-x-2 mb-2">
             <Sparkles className={`w-5 h-5 ${likelihood.textColor}`} />
@@ -49,13 +79,7 @@ export default function PriceSuggestion() {
             ₹{price}
           </p>
           <div className="flex items-center space-x-2 mt-3">
-            {likelihood.color === "warning" ? (
-              <TrendingUp className={`w-4 h-4 ${likelihood.textColor}`} />
-            ) : likelihood.color === "danger" ? (
-              <TrendingDown className={`w-4 h-4 ${likelihood.textColor}`} />
-            ) : (
-              <TrendingUp className={`w-4 h-4 ${likelihood.textColor}`} />
-            )}
+            <TrendingUp className={`w-4 h-4 ${likelihood.textColor}`} />
             <p className={`text-xs transition-colors duration-500 ${likelihood.textColor}`}>
               {likelihood.text}
             </p>
@@ -103,7 +127,7 @@ export default function PriceSuggestion() {
 
         <div className="space-y-3 pt-4">
           <Button
-            className="w-full h-12 text-base"
+            className="w-full h-12 text-base bg-primary-green hover:bg-deep-green text-primary-foreground"
             onClick={() => navigate("/offers")}
           >
             Continue

@@ -61,12 +61,12 @@ export default function ServiceType() {
           {massageTypes.map((type) => (
             <Card
               key={type.id}
-              className={`overflow-hidden cursor-pointer transition-all duration-300 ${
+              className={`overflow-hidden cursor-pointer transition-all duration-300 border-2 ${
                 selectedService === type.id
-                  ? "border-2 border-light-accent shadow-lg bg-light-accent/10"
+                  ? "border-teal shadow-lg bg-mint"
                   : type.recommended
-                  ? `border-2 border-light-accent ${pulseAnimation} ${glowAnimation}`
-                  : "border-2 border-transparent hover:border-border"
+                  ? "border-teal animate-pulse-border bg-light-mint"
+                  : "border-border hover:border-teal bg-card"
               }`}
               onClick={() => setSelectedService(type.id)}
             >
@@ -78,7 +78,7 @@ export default function ServiceType() {
                         {type.name}
                       </h3>
                       {type.recommended && (
-                        <span className="text-xs bg-light-accent text-dark-bg px-2 py-0.5 rounded-full font-medium">
+                        <span className="text-xs bg-success text-white px-2 py-0.5 rounded-full font-medium">
                           Recommended
                         </span>
                       )}
@@ -90,7 +90,7 @@ export default function ServiceType() {
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-muted-foreground">Starting at</p>
-                    <p className="text-xl font-bold text-light-accent">{type.price}</p>
+                    <p className="text-xl font-bold text-primary-green">{type.price}</p>
                   </div>
                 </div>
 
@@ -100,10 +100,10 @@ export default function ServiceType() {
                       When are you free?
                     </label>
                     <Select value={selectedTime} onValueChange={setSelectedTime}>
-                      <SelectTrigger className="w-full bg-card">
+                      <SelectTrigger className="w-full bg-card border-border">
                         <SelectValue placeholder="Choose your time window" />
                       </SelectTrigger>
-                      <SelectContent className="bg-card">
+                      <SelectContent className="bg-card border-border z-50">
                         {timeWindows.map((window) => (
                           <SelectItem key={window} value={window}>
                             {window}
@@ -121,7 +121,7 @@ export default function ServiceType() {
 
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
         <Button
-          className="w-full h-12 text-base"
+          className="w-full h-12 text-base bg-primary-green hover:bg-deep-green text-primary-foreground"
           onClick={handleContinue}
           disabled={!selectedService || !selectedTime}
         >
