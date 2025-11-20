@@ -60,6 +60,9 @@ export default {
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         info: "hsl(var(--info))",
+        "dark-primary": "hsl(var(--dark-primary))",
+        "dark-secondary": "hsl(var(--dark-secondary))",
+        "dark-tertiary": "hsl(var(--dark-tertiary))",
       },
       borderRadius: {
         lg: "var(--radius)",
