@@ -52,8 +52,8 @@ export default function BookingSummary() {
 
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
-                <User className="w-5 h-5 text-light-accent" />
+              <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <User className="w-5 h-5 text-primary-green" />
               </div>
               <div className="flex-1">
                 <p className="font-medium text-card-foreground">Service</p>
@@ -62,16 +62,16 @@ export default function BookingSummary() {
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
-                <Clock className="w-5 h-5 text-light-accent" />
+              <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <Clock className="w-5 h-5 text-primary-green" />
               </div>
               <div className="flex-1">
                 <p className="font-medium text-card-foreground mb-2">Time Slot</p>
                 <Select value={selectedTime} onValueChange={setSelectedTime}>
-                  <SelectTrigger className="w-full bg-dark-card-elevated">
+                  <SelectTrigger className="w-full bg-card border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-dark-card-elevated border-border">
+                  <SelectContent className="bg-card border-border z-50">
                     {timeSlots.map((time) => (
                       <SelectItem key={time.slot} value={time.slot}>
                         <div className="flex justify-between w-full">
@@ -87,8 +87,8 @@ export default function BookingSummary() {
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-full bg-dark-card-elevated flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-light-accent" />
+              <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5 text-primary-green" />
               </div>
               <div>
                 <p className="font-medium text-card-foreground">Location</p>
@@ -100,19 +100,19 @@ export default function BookingSummary() {
 
           <Separator />
 
-          <div className="flex items-center justify-between p-4 bg-light-accent/20 rounded-lg border border-light-accent/30">
+          <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border border-success/30">
             <div className="flex items-center space-x-2">
-              <DollarSign className="w-5 h-5 text-light-accent" />
+              <DollarSign className="w-5 h-5 text-success" />
               <span className="font-medium text-foreground">Total Price</span>
             </div>
-            <span className="text-2xl font-bold text-light-accent">₹{selectedSlot.price}</span>
+            <span className="text-2xl font-bold text-success">₹{selectedSlot.price}</span>
           </div>
         </Card>
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
         <Button
-          className="w-full h-12 text-base bg-light-accent hover:bg-light-accent/90 text-dark-bg"
+          className="w-full h-12 text-base bg-primary-green hover:bg-deep-green text-primary-foreground"
           onClick={() => navigate("/confirmation")}
         >
           Confirm Booking

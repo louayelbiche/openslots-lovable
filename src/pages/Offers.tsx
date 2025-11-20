@@ -88,9 +88,9 @@ export default function Offers() {
             <h1 className="text-2xl font-bold text-foreground">Live Offers</h1>
             <Badge
               variant="secondary"
-              className="mt-1 animate-pulse bg-light-accent/20 text-light-accent border-light-accent/30"
+              className="mt-1 animate-pulse bg-success/10 text-success border-success/30"
             >
-              <span className="w-2 h-2 rounded-full bg-light-accent mr-2 animate-ping"></span>
+              <span className="w-2 h-2 rounded-full bg-success mr-2 animate-ping"></span>
               <span className="animate-[pulse_1.5s_ease-in-out_infinite]">Offers coming in</span>
               <span className="animate-[pulse_1.5s_ease-in-out_infinite_0.5s]">.</span>
               <span className="animate-[pulse_1.5s_ease-in-out_infinite_1s]">.</span>
@@ -108,8 +108,8 @@ export default function Offers() {
               onClick={() => setSortBy(filter.toLowerCase())}
               className={`whitespace-nowrap transition-all ${
                 sortBy === filter.toLowerCase()
-                  ? "bg-light-accent text-dark-bg hover:bg-light-accent/90"
-                  : "bg-dark-card-elevated text-foreground hover:bg-dark-card-elevated/80"
+                  ? "bg-primary-green text-primary-foreground hover:bg-deep-green"
+                  : "bg-mint text-primary border-border hover:bg-light-mint"
               }`}
             >
               {filter}
@@ -123,17 +123,17 @@ export default function Offers() {
             return (
               <Card
                 key={vendor.id}
-                className={`p-5 transition-all relative overflow-hidden ${
+                className={`p-5 transition-all relative overflow-hidden border-2 ${
                   isTopOffer
-                    ? `border-2 border-light-accent ${pulseAnimation} ${glowAnimation}`
-                    : "border-2 border-border hover:border-light-accent/50"
+                    ? "border-teal animate-gentle-blink bg-light-mint"
+                    : "border-border hover:border-teal bg-card"
                 }`}
               >
                 <Badge
                   className={`absolute top-3 right-3 ${
                     isTopOffer
-                      ? "bg-light-accent text-dark-bg"
-                      : "bg-dark-card-elevated text-light-accent border border-light-accent/30"
+                      ? "bg-success text-white"
+                      : "bg-mint text-primary-green border border-teal"
                   }`}
                 >
                   {vendor.label}
@@ -158,9 +158,9 @@ export default function Offers() {
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-muted-foreground mb-1">
-                        Best price
+                        From
                       </p>
-                      <p className="text-2xl font-bold text-light-accent">
+                      <p className="text-2xl font-bold text-success">
                         ₹{vendor.bestPrice}
                       </p>
                     </div>
@@ -177,21 +177,21 @@ export default function Offers() {
                         setSelectedSlots({ ...selectedSlots, [vendor.id]: value })
                       }
                     >
-                      <SelectTrigger className="w-full bg-dark-card-elevated border-border">
+                      <SelectTrigger className="w-full bg-card border-border">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-dark-card-elevated border-border">
+                      <SelectContent className="bg-card border-border z-50">
                         {vendor.times.map((time) => (
                           <SelectItem key={time.slot} value={time.slot}>
                             <div className="flex justify-between w-full items-center gap-4">
                               <span>{time.slot}</span>
                               <div className="flex items-center gap-2">
-                                <span className="font-semibold text-light-accent">
+                                <span className="font-semibold text-success">
                                   ₹{time.price}
                                 </span>
                                 {time.bestOffer && (
-                                  <span className="text-xs bg-light-accent/20 text-light-accent px-2 py-0.5 rounded-full">
-                                    Best offer
+                                  <span className="text-xs bg-success/10 text-success px-2 py-0.5 rounded-full">
+                                    Best Offer
                                   </span>
                                 )}
                               </div>
@@ -203,7 +203,7 @@ export default function Offers() {
                   </div>
 
                   <Button
-                    className="w-full bg-light-accent hover:bg-light-accent/90 text-dark-bg"
+                    className="w-full bg-primary-green hover:bg-deep-green text-primary-foreground"
                     onClick={() => navigate("/booking-summary")}
                   >
                     Book Now

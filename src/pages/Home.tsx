@@ -31,23 +31,23 @@ export default function Home() {
                 onClick={() => navigate(category.path)}
                 className={`p-6 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 ${
                   isRecommended
-                    ? `border-light-accent ${pulseAnimation} ${glowAnimation}`
-                    : "hover:border-primary"
+                    ? "border-teal animate-pulse-border bg-light-mint"
+                    : "hover:border-primary bg-card"
                 }`}
               >
                 <div className="flex flex-col items-center space-y-3">
                   <div className={`w-16 h-16 rounded-full flex items-center justify-center ${
-                    isRecommended ? "bg-light-accent" : "bg-accent"
+                    isRecommended ? "bg-success" : "bg-accent"
                   }`}>
                     <category.icon className={`w-8 h-8 ${
-                      isRecommended ? "text-dark-bg" : "text-accent-foreground"
+                      isRecommended ? "text-white" : "text-accent-foreground"
                     }`} />
                   </div>
                   <span className="text-lg font-semibold text-card-foreground">
                     {category.name}
                   </span>
                   {isRecommended && (
-                    <span className="text-xs text-light-accent font-medium">Recommended</span>
+                    <span className="text-xs text-success font-medium">Recommended</span>
                   )}
                 </div>
               </Card>
