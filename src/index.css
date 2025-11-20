@@ -179,6 +179,17 @@ All colors MUST be HSL.
       box-shadow: 0 0 0 4px hsl(var(--teal) / 0.2);
     }
   }
+
+  @keyframes breathing-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(16, 132, 75, 0.4), 0 0 40px rgba(16, 132, 75, 0.2);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(16, 132, 75, 0.6), 0 0 60px rgba(16, 132, 75, 0.3);
+      transform: scale(1.02);
+    }
+  }
   
   .animate-scale-in {
     animation: scale-in 0.5s ease-out;
@@ -188,7 +199,11 @@ All colors MUST be HSL.
     animation: gentle-blink 2s ease-in-out infinite;
   }
 
-  .animate-pulse-border {
-    animation: pulse-border 2s ease-in-out infinite;
-  }
+.animate-pulse-border {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+.animate-breathing-glow {
+  animation: breathing-glow 3s ease-in-out infinite;
+}
 }
