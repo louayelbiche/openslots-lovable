@@ -99,18 +99,40 @@ export default function ServiceType() {
                     <label className="text-sm font-medium text-foreground">
                       When are you free?
                     </label>
-                    <Select value={selectedTime} onValueChange={setSelectedTime}>
-                      <SelectTrigger className="w-full bg-card border-border">
-                        <SelectValue placeholder="Choose your time window" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-card border-border z-50">
-                        {timeWindows.map((window) => (
-                          <SelectItem key={window} value={window}>
-                            {window}
-                          </SelectItem>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      <Button
+                        variant={selectedTime === "today" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedTime("today")}
+                        className={selectedTime === "today" ? "bg-primary-green text-primary-foreground" : ""}
+                      >
+                        Today
+                      </Button>
+                      <Button
+                        variant={selectedTime === "tomorrow" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedTime("tomorrow")}
+                        className={selectedTime === "tomorrow" ? "bg-primary-green text-primary-foreground" : ""}
+                      >
+                        Tomorrow
+                      </Button>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-xs text-muted-foreground">Select time window</p>
+                      <div className="flex flex-wrap gap-2">
+                        {["12–3 PM", "3–6 PM", "6–9 PM"].map((time) => (
+                          <Button
+                            key={time}
+                            variant="outline"
+                            size="sm"
+                            className="text-xs"
+                            onClick={() => setSelectedTime(time)}
+                          >
+                            {time}
+                          </Button>
                         ))}
-                      </SelectContent>
-                    </Select>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

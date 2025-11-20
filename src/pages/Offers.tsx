@@ -76,9 +76,14 @@ export default function Offers() {
   };
 
   const sortedVendors = getSortedVendors();
+  
+  // Find the global best offer (lowest price across all vendors)
+  const globalBestOffer = sortedVendors.reduce((best, vendor) => 
+    vendor.bestPrice < best.bestPrice ? vendor : best
+  , sortedVendors[0]);
 
   return (
-    <div className="min-h-screen bg-background pb-6">
+    <div className="min-h-screen bg-light-mint pb-6">
       <div className="p-6 space-y-6">
         <div className="flex items-center space-x-3">
           <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
@@ -88,13 +93,15 @@ export default function Offers() {
             <h1 className="text-2xl font-bold text-foreground">Live Offers</h1>
             <Badge
               variant="secondary"
-              className="mt-1 animate-pulse bg-success/10 text-success border-success/30"
+              className="mt-1 bg-success-light text-success border-success/30"
             >
               <span className="w-2 h-2 rounded-full bg-success mr-2 animate-ping"></span>
-              <span className="animate-[pulse_1.5s_ease-in-out_infinite]">Offers coming in</span>
-              <span className="animate-[pulse_1.5s_ease-in-out_infinite_0.5s]">.</span>
-              <span className="animate-[pulse_1.5s_ease-in-out_infinite_1s]">.</span>
-              <span className="animate-[pulse_1.5s_ease-in-out_infinite_1.5s]">.</span>
+              <span className="animate-pulse">Offers coming in</span>
+              <span className="inline-flex ml-1">
+                <span className="animate-[bounce_1s_ease-in-out_infinite]">.</span>
+                <span className="animate-[bounce_1s_ease-in-out_infinite_0.2s]">.</span>
+                <span className="animate-[bounce_1s_ease-in-out_infinite_0.4s]">.</span>
+              </span>
             </Badge>
           </div>
         </div>
@@ -106,10 +113,10 @@ export default function Offers() {
               variant={sortBy === filter.toLowerCase() ? "default" : "outline"}
               size="sm"
               onClick={() => setSortBy(filter.toLowerCase())}
-              className={`whitespace-nowrap transition-all ${
+              className={`whitespace-nowrap transition-all font-medium ${
                 sortBy === filter.toLowerCase()
-                  ? "bg-primary-green text-primary-foreground hover:bg-deep-green"
-                  : "bg-mint text-primary border-border hover:bg-light-mint"
+                  ? "bg-primary-green text-primary-foreground hover:bg-deep-green shadow-md"
+                  : "bg-card text-foreground border-border hover:bg-mint"
               }`}
             >
               {filter}
@@ -118,21 +125,27 @@ export default function Offers() {
         </div>
 
         <div className="space-y-3">
-          {sortedVendors.map((vendor, index) => {
-            const isTopOffer = index === 0;
+          {sortedVendors.map((vendor) => {
+            const isBestOffer = vendor.id === globalBestOffer.id;
+            const bestSlotForVendor = vendor.times.reduce((best, time) => 
+              time.price < best.price ? time : best
+            , vendor.times[0]);
+            
             return (
               <Card
                 key={vendor.id}
                 className={`p-5 transition-all relative overflow-hidden border-2 ${
-                  isTopOffer
-                    ? "border-teal animate-gentle-blink bg-light-mint"
+                  isBestOffer
+                    ? "border-success animate-gentle-blink bg-success-light shadow-lg"
                     : "border-border hover:border-teal bg-card"
                 }`}
               >
                 <Badge
-                  className={`absolute top-3 right-3 ${
-                    isTopOffer
-                      ? "bg-success text-white"
+                  className={`absolute top-3 right-3 font-medium ${
+                    isBestOffer
+                      ? "bg-success text-white shadow-md"
+                      : vendor.label === "Highest Rated"
+                      ? "bg-info/10 text-info border border-info/30"
                       : "bg-mint text-primary-green border border-teal"
                   }`}
                 >
@@ -140,7 +153,7 @@ export default function Offers() {
                 </Badge>
 
                 <div className="space-y-4">
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-between items-start pr-24">
                     <div>
                       <h3 className="font-semibold text-lg text-card-foreground">
                         {vendor.name}
@@ -172,7 +185,7 @@ export default function Offers() {
                       Choose your time slot
                     </label>
                     <Select
-                      value={selectedSlots[vendor.id] || vendor.times[0].slot}
+                      value={selectedSlots[vendor.id] || bestSlotForVendor.slot}
                       onValueChange={(value) =>
                         setSelectedSlots({ ...selectedSlots, [vendor.id]: value })
                       }
@@ -189,8 +202,8 @@ export default function Offers() {
                                 <span className="font-semibold text-success">
                                   ₹{time.price}
                                 </span>
-                                {time.bestOffer && (
-                                  <span className="text-xs bg-success/10 text-success px-2 py-0.5 rounded-full">
+                                {isBestOffer && time.slot === bestSlotForVendor.slot && (
+                                  <span className="text-xs bg-success text-white px-2 py-0.5 rounded-full">
                                     Best Offer
                                   </span>
                                 )}
@@ -203,7 +216,7 @@ export default function Offers() {
                   </div>
 
                   <Button
-                    className="w-full bg-primary-green hover:bg-deep-green text-primary-foreground"
+                    className="w-full bg-primary-green hover:bg-deep-green text-primary-foreground font-medium"
                     onClick={() => navigate("/booking-summary")}
                   >
                     Book Now
