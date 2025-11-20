@@ -67,7 +67,9 @@ export default function PriceSuggestion() {
         </div>
 
         <Card
-          className={`p-6 transition-all duration-500 border-2 ${likelihood.borderColor} ${likelihood.cardBg}`}
+          className={`p-6 transition-all duration-500 ${likelihood.borderColor} ${likelihood.cardBg} ${
+            likelihood.text === "Very low match likelihood" ? "border-[3px]" : "border-2"
+          }`}
         >
           <div className="flex items-center space-x-2 mb-2">
             <Sparkles className={`w-5 h-5 ${likelihood.textColor}`} />
