@@ -29,10 +29,10 @@ export default function Home() {
               <Card
                 key={category.name}
                 onClick={() => navigate(category.path)}
-                className={`p-6 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 ${
+                className={`p-6 cursor-pointer transition-all duration-300 border-2 ${
                   isRecommended
-                    ? "border-teal animate-pulse-border bg-light-mint"
-                    : "hover:border-primary bg-card"
+                    ? "border-success bg-light-mint animate-breathing-glow"
+                    : "hover:border-primary bg-card hover:shadow-lg hover:scale-105"
                 }`}
               >
                 <div className="flex flex-col items-center space-y-3">
@@ -47,7 +47,7 @@ export default function Home() {
                     {category.name}
                   </span>
                   {isRecommended && (
-                    <span className="text-xs text-success font-medium">Recommended</span>
+                    <span className="text-xs text-success font-medium">Recommended for you</span>
                   )}
                 </div>
               </Card>
