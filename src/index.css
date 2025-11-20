@@ -56,8 +56,8 @@ All colors MUST be HSL.
     --high-match: 142 71% 94%;
     --low-match: 25 90% 60%;
     --low-match-light: 38 100% 95%;
-    --very-low-match: 0 65% 55%;
-    --very-low-match-light: 0 79% 96%;
+    --very-low-match: 25 90% 60%;
+    --very-low-match-light: 38 100% 95%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -123,8 +123,8 @@ All colors MUST be HSL.
     --high-match: 142 71% 94%;
     --low-match: 25 90% 60%;
     --low-match-light: 38 100% 95%;
-    --very-low-match: 0 65% 55%;
-    --very-low-match-light: 0 79% 96%;
+    --very-low-match: 25 90% 60%;
+    --very-low-match-light: 38 100% 95%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
