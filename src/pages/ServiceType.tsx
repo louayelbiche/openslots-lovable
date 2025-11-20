@@ -97,42 +97,20 @@ export default function ServiceType() {
                 {selectedService === type.id && (
                   <div className="space-y-3 animate-fade-in border-t border-border pt-4">
                     <label className="text-sm font-medium text-foreground">
-                      When are you free?
+                      Choose your time window
                     </label>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <Button
-                        variant={selectedTime === "today" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setSelectedTime("today")}
-                        className={selectedTime === "today" ? "bg-primary-green text-primary-foreground" : ""}
-                      >
-                        Today
-                      </Button>
-                      <Button
-                        variant={selectedTime === "tomorrow" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setSelectedTime("tomorrow")}
-                        className={selectedTime === "tomorrow" ? "bg-primary-green text-primary-foreground" : ""}
-                      >
-                        Tomorrow
-                      </Button>
-                    </div>
-                    <div className="space-y-2">
-                      <p className="text-xs text-muted-foreground">Select time window</p>
-                      <div className="flex flex-wrap gap-2">
-                        {["12–3 PM", "3–6 PM", "6–9 PM"].map((time) => (
-                          <Button
-                            key={time}
-                            variant="outline"
-                            size="sm"
-                            className="text-xs"
-                            onClick={() => setSelectedTime(time)}
-                          >
-                            {time}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
+                    <Select value={selectedTime} onValueChange={setSelectedTime}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a time window" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="morning">Morning (9 AM – 12 PM)</SelectItem>
+                        <SelectItem value="afternoon">Afternoon (12 PM – 3 PM)</SelectItem>
+                        <SelectItem value="evening">Evening (3 PM – 6 PM)</SelectItem>
+                        <SelectItem value="night">Night (6 PM – 9 PM)</SelectItem>
+                        <SelectItem value="custom">Custom Range</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 )}
               </div>
