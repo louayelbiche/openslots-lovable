@@ -15,38 +15,38 @@ export default function PriceSuggestion() {
     const diff = price - recommendedPrice;
     if (Math.abs(diff) < 25) return { 
       text: "High match likelihood", 
-      bgColor: "bg-light-mint", 
-      borderColor: "border-teal", 
-      textColor: "text-success",
-      cardBg: "bg-light-mint"
+      bgColor: "bg-high-match", 
+      borderColor: "border-success", 
+      textColor: "text-deep-green",
+      cardBg: "bg-high-match"
     };
     if (diff > 50) return { 
       text: "Very high match likelihood", 
-      bgColor: "bg-deep-green/10", 
-      borderColor: "border-success", 
-      textColor: "text-success",
-      cardBg: "bg-success/5"
+      bgColor: "bg-very-high-match", 
+      borderColor: "border-very-high-match", 
+      textColor: "text-white",
+      cardBg: "bg-very-high-match"
     };
     if (diff > 0) return { 
       text: "High match likelihood", 
-      bgColor: "bg-light-mint", 
-      borderColor: "border-teal", 
-      textColor: "text-success",
-      cardBg: "bg-light-mint"
+      bgColor: "bg-high-match", 
+      borderColor: "border-success", 
+      textColor: "text-deep-green",
+      cardBg: "bg-high-match"
     };
     if (diff > -50) return { 
       text: "Low match likelihood", 
-      bgColor: "bg-warning/10", 
-      borderColor: "border-warning", 
-      textColor: "text-warning",
-      cardBg: "bg-warning/5"
+      bgColor: "bg-low-match-light", 
+      borderColor: "border-low-match", 
+      textColor: "text-low-match",
+      cardBg: "bg-low-match-light"
     };
     return { 
       text: "Very low match likelihood", 
-      bgColor: "bg-danger/10", 
-      borderColor: "border-danger", 
-      textColor: "text-danger",
-      cardBg: "bg-danger/5"
+      bgColor: "bg-very-low-match-light", 
+      borderColor: "border-very-low-match", 
+      textColor: "text-very-low-match",
+      cardBg: "bg-very-low-match-light"
     };
   };
 

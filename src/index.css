@@ -39,8 +39,11 @@ All colors MUST be HSL.
     --radius: 1.25rem;
     
     --success: 152 74% 29%;
-    --warning: 25 95% 59%;
+    --success-light: 142 71% 94%;
+    --warning: 25 90% 60%;
+    --warning-light: 38 100% 95%;
     --danger: 0 65% 55%;
+    --danger-light: 0 79% 96%;
     --info: 200 90% 55%;
     
     --mint: 140 45% 96%;
@@ -49,6 +52,12 @@ All colors MUST be HSL.
     --dark-green: 156 56% 18%;
     --primary-green: 158 50% 22%;
     --light-mint: 148 55% 93%;
+    --very-high-match: 152 74% 29%;
+    --high-match: 142 71% 94%;
+    --low-match: 25 90% 60%;
+    --low-match-light: 38 100% 95%;
+    --very-low-match: 0 65% 55%;
+    --very-low-match-light: 0 79% 96%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -97,8 +106,11 @@ All colors MUST be HSL.
     --ring: 150 23% 58%;
     
     --success: 152 74% 29%;
-    --warning: 25 95% 59%;
+    --success-light: 142 71% 94%;
+    --warning: 25 90% 60%;
+    --warning-light: 38 100% 95%;
     --danger: 0 65% 55%;
+    --danger-light: 0 79% 96%;
     --info: 200 90% 55%;
     
     --mint: 140 45% 96%;
@@ -107,6 +119,12 @@ All colors MUST be HSL.
     --dark-green: 156 56% 18%;
     --primary-green: 158 50% 22%;
     --light-mint: 148 55% 93%;
+    --very-high-match: 152 74% 29%;
+    --high-match: 142 71% 94%;
+    --low-match: 25 90% 60%;
+    --low-match-light: 38 100% 95%;
+    --very-low-match: 0 65% 55%;
+    --very-low-match-light: 0 79% 96%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

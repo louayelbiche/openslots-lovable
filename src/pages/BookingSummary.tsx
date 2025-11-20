@@ -67,22 +67,10 @@ export default function BookingSummary() {
               </div>
               <div className="flex-1">
                 <p className="font-medium text-card-foreground mb-2">Time Slot</p>
-                <Select value={selectedTime} onValueChange={setSelectedTime}>
-                  <SelectTrigger className="w-full bg-card border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-card border-border z-50">
-                    {timeSlots.map((time) => (
-                      <SelectItem key={time.slot} value={time.slot}>
-                        <div className="flex justify-between w-full">
-                          <span>{time.slot}</span>
-                          <span className="ml-4 font-semibold">₹{time.price}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <p className="text-xs text-muted-foreground mt-1">Tomorrow, Dec 20, 2024</p>
+                <div className="p-3 bg-success-light border border-success/30 rounded-lg">
+                  <p className="font-semibold text-card-foreground">{selectedSlot.slot}</p>
+                  <p className="text-xs text-muted-foreground mt-1">Tomorrow, Dec 20, 2024</p>
+                </div>
               </div>
             </div>
 

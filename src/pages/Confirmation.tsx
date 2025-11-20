@@ -2,172 +2,131 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   MapPin,
   Clock,
-  DollarSign,
   CheckCircle2,
-  Sparkles,
 } from "lucide-react";
+import confetti from "canvas-confetti";
 
 export default function Confirmation() {
   const navigate = useNavigate();
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    setShowConfetti(true);
-    const timer = setTimeout(() => setShowConfetti(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!showConfetti) {
+      setShowConfetti(true);
+      const duration = 2000;
+      const end = Date.now() + duration;
+
+      const colors = ["#10844B", "#8EB69B", "#DAF1DE", "#E2F6EA"];
+
+      (function frame() {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors,
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors,
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+  }, [showConfetti]);
 
   return (
-    <div className="min-h-screen bg-background pb-24 relative overflow-hidden">
-      {showConfetti && (
-        <>
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute animate-[fall_3s_ease-in-out_forwards]"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: "-10px",
-                  animationDelay: `${Math.random() * 2}s`,
-                }}
-              >
-                <Sparkles
-                  className="text-success"
-                  style={{
-                    width: `${Math.random() * 10 + 15}px`,
-                    height: `${Math.random() * 10 + 15}px`,
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-          <style>{`
-            @keyframes fall {
-              to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-              }
-            }
-          `}</style>
-        </>
-      )}
-
-      <div className="p-6 space-y-6 relative z-10">
-        <div className="text-center py-8 space-y-4">
+    <div className="min-h-screen bg-light-mint flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-center p-6 max-w-md mx-auto w-full">
+        <div className="text-center space-y-4 mb-6">
           <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto animate-scale-in">
             <CheckCircle2 className="w-12 h-12 text-success" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground animate-fade-in">
-            You're booked!
-          </h1>
-          <p className="text-muted-foreground animate-fade-in">
-            Get ready to relax
-          </p>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground mb-2">You're booked!</h1>
+            <p className="text-muted-foreground">Get ready to relax</p>
+          </div>
         </div>
 
-        <Card className="overflow-hidden animate-fade-in border-2 border-teal">
-          <div className="h-32 bg-gradient-to-br from-mint to-light-mint relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(16,132,75,0.2),transparent)]"></div>
-          </div>
-          <div className="p-6 space-y-4">
+        <Card className="w-full p-5 space-y-4 bg-card border-2 border-success/20 shadow-lg">
+          <div className="space-y-3">
             <div>
-              <h2 className="text-2xl font-bold text-card-foreground">
-                Serenity Spa
-              </h2>
-              <p className="text-sm text-muted-foreground mt-1">
-                Professional massage therapy
+              <h2 className="text-xl font-bold text-card-foreground">Serenity Spa</h2>
+              <p className="text-sm text-muted-foreground flex items-center mt-1">
+                <span className="mr-1">★★★★☆</span> 4.8
               </p>
             </div>
 
-            <Separator />
-
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-5 h-5 text-success" />
-                </div>
-                <div>
-                  <p className="font-medium text-card-foreground">
-                    Oil Massage - Full Body
-                  </p>
-                  <p className="text-sm text-muted-foreground">60 minutes</p>
-                </div>
+            <div className="flex items-start space-x-3 py-2 border-t border-border">
+              <div className="w-8 h-8 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-primary-green" />
               </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5 text-primary-green" />
-                </div>
-                <div>
-                  <p className="font-medium text-card-foreground">
-                    Tomorrow, 3:00 PM
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Dec 20, 2024 • 3:00 PM - 4:00 PM
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full bg-light-mint flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-primary-green" />
-                </div>
-                <div>
-                  <p className="font-medium text-card-foreground">
-                    1.2 km away
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    123 Wellness Street, Downtown
-                  </p>
-                </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-card-foreground">Foot Massage • 45 min</p>
               </div>
             </div>
 
-            <Separator />
-
-            <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border border-success/30">
-              <div className="flex items-center space-x-2">
-                <DollarSign className="w-5 h-5 text-success" />
-                <span className="font-medium text-foreground">Total Price</span>
+            <div className="flex items-start space-x-3 py-2 border-t border-border">
+              <div className="w-8 h-8 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <Clock className="w-4 h-4 text-primary-green" />
               </div>
-              <span className="text-2xl font-bold text-success">₹280</span>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-card-foreground">Tomorrow, Dec 20</p>
+                <p className="text-sm text-muted-foreground">2:00 PM</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3 py-2 border-t border-border">
+              <div className="w-8 h-8 rounded-full bg-light-mint flex items-center justify-center shrink-0">
+                <MapPin className="w-4 h-4 text-primary-green" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-muted-foreground">123 Wellness Street</p>
+                <p className="text-xs text-muted-foreground">1.2 km away</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-success/10 rounded-lg border border-success/30 mt-4">
+              <span className="font-medium text-foreground">Total</span>
+              <span className="text-xl font-bold text-success">₹280</span>
             </div>
           </div>
         </Card>
-      </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-card border-t border-border space-y-2">
-        <Button
-          className="w-full h-12 text-base bg-primary-green hover:bg-deep-green text-primary-foreground"
-          onClick={() => navigate("/home")}
-        >
-          Back to Home
-        </Button>
-        <div className="flex gap-2">
+        <div className="w-full space-y-3 mt-6">
           <Button
-            variant="outline"
-            className="flex-1 h-10 text-sm border-primary-green text-primary-green hover:bg-light-mint"
-            onClick={() => navigate("/")}
+            className="w-full bg-primary-green hover:bg-deep-green text-primary-foreground font-medium h-12"
+            onClick={() => navigate("/vendor-dashboard")}
           >
             View Booking
           </Button>
-          <Button
-            variant="outline"
-            className="flex-1 h-10 text-sm border-border hover:bg-light-mint"
-          >
-            Add to Calendar
-          </Button>
-          <Button
-            variant="outline"
-            className="flex-1 h-10 text-sm border-border hover:bg-light-mint"
-          >
-            Directions
-          </Button>
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="outline"
+              className="w-full border-primary-green text-primary-green hover:bg-mint"
+              onClick={() => alert("Add to Calendar")}
+            >
+              <CheckCircle2 className="w-4 h-4 mr-2" />
+              Add to Calendar
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full border-primary-green text-primary-green hover:bg-mint"
+              onClick={() => alert("Get Directions")}
+            >
+              <MapPin className="w-4 h-4 mr-2" />
+              Directions
+            </Button>
+          </div>
         </div>
       </div>
     </div>
